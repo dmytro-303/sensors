@@ -1,0 +1,30 @@
+services:
+  postgres:
+    container_name: postgres_service
+    image: postgres:11
+    ports:
+      - "8082:5432"
+    hostname:   postgres_service
+    environment:
+      - POSTGRES_PASSWORD=local
+      - POSTGRES_USER=local
+      - POSTGRES_DB=sensors
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  sensors-service:
+    build: .
+    container_name: sensors_service
+    environment:
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_PASSWORD=local
+      - DATABASE_USERNAME=local
+      - DATABASE_DB=sensors
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data:

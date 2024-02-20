@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DATABASE_HOST}:${DATABASE_PORT}/sensors
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+    database: postgresql
+  flyway:
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:8082}/sensors
+    user: ${DATABASE_USERNAME:local}
+    password: ${DATABASE_PASSWORD:local}
+
+sensors:
+  threshold: 2000
+  metrics-days-count: 30
+
+logging:
+  level:
+    root: INFO
